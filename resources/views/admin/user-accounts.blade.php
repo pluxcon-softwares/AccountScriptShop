@@ -310,12 +310,14 @@
                             }
 
                             if(res.success){
-                                swal({
+                                swal.fire({
                                     title: "User Account",
                                     text: res.success,
                                     icon: "success"
+                                }).then((result)=>{
+                                    window.location.reload();
                                 });
-                                window.location.reload();
+                                
                             }
                         }
                     });
@@ -339,8 +341,9 @@
                                 title: "User Account",
                                 text: res.success,
                                 icon: "success"
+                            }).then((result)=>{
+                                window.location.reload();
                             });
-                            window.location.reload();
                         }
                     }
                 });

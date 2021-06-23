@@ -134,6 +134,7 @@
             $(document).on('click', '.buy_btn', function(e){
                 e.preventDefault();
                 var product_id = e.currentTarget.dataset['product_id'];
+                var elementParent = e.currentTarget;
                 $.ajax({
                     url: `/cart/${product_id}`,
                     method: 'GET',
@@ -142,12 +143,17 @@
 
                         if(res.errors)
                         {
-                            console.log(res.errors);
+                            swal.fire({
+                                title: 'Error!',
+                                text: `${res.errors}`,
+                                icon: 'error'
+                            });
                         }
                         
                         if(res.success)
                         {
                             countCart();
+                            elementParent.parentNode.parentNode.remove();
                         }
                     }
                 });

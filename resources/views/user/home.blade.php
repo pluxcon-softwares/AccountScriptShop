@@ -33,7 +33,14 @@
 
 
       <div class="col-md-5" style="text-align: center">
-        <div class="card card-primary">
+
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title"><i class="fas fa-money-bill-alt"></i> Account Balance ${{ sprintf('%.2f', Auth::user()->wallet) }}</h3>
+        </div>
+      </div>
+
+      <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title"><i class="fas fa-user"></i> My Account</h3>
 
@@ -47,6 +54,7 @@
           <!-- /.card-body -->
         </div>
         <!-- /.card -->
+       
       </div>
 
 </div>
@@ -106,6 +114,8 @@ $(function(){
       });
       $('#viewMessageModal').modal('show');
     });
+
+    
 });
 </script>
 

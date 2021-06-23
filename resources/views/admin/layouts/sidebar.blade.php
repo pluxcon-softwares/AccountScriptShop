@@ -65,7 +65,7 @@
 
               <!--<div class="nav-header"></div>-->
 
-              <li class="nav-item"><a href="{{route('admin.orders')}}" class="nav-link"><i class="fas fa-truck-moving"></i> <p>Orders</p></a></li>
+              <!-- <li class="nav-item"><a href="{{route('admin.orders')}}" class="nav-link"><i class="fas fa-truck-moving"></i> <p>Orders</p></a></li> -->
               <li class="nav-item"><a href="{{route('admin.purchases')}}" class="nav-link"><i class="fas fa-shopping-cart"></i> <p>Purchases</p></a></li>
 
               <li class="nav-item">
