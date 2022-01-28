@@ -159,6 +159,7 @@ Route::get('/deposit/canceled', 'Payment\WalletController@depositCancel')->name(
 
 //Cart Functionality Routes
 Route::get('cart-page', 'Payment\WalletController@cartPage')->name('cart');
+Route::get('cart/check-cart', 'Payment\WalletController@checkCart');
 Route::get('cart/process-order', 'Payment\WalletController@processOrder')->name('process.order');
 Route::get('cart/thank-you', 'Payment\WalletController@thankYou')->name('thank.you');
 Route::get('cart/{id}', 'Payment\WalletController@cart');

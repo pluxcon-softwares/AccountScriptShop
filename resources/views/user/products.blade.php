@@ -17,7 +17,7 @@
                     @if(count($data['subcategories']) <= 0)
                             No Product Categories
                         @else
-                            
+
                             @foreach ($data['subcategories'] as $subcat)
                             <li style="
                             display: inline-block;
@@ -33,7 +33,7 @@
                                 </a>
                             </li>
                             @endforeach
-                            
+
                         @endif
                 </div>
             </div>
@@ -90,9 +90,9 @@
                     }
                 });
             }
-            
+
             var productsTbl = $('#productTbl').DataTable({
-                
+
                 columns:[
                     {data: 'sub_category.sub_category_name'},
                     {data: 'name'},
@@ -104,7 +104,7 @@
                             return `
                             <a href="#" style="font-size:10px; margin:0!important;" class="btn btn-xs btn-primary buy_btn" data-product_id="${id}">
                                 <i class="fa fa-shopping-cart"></i>
-                                <div class="spinner-border spinner-border-sm text-danger" style="display:none;"></div> 
+                                <div class="spinner-border spinner-border-sm text-danger" style="display:none;"></div>
                                 Buy Now
                             </a>
                             `;
@@ -149,7 +149,16 @@
                                 icon: 'error'
                             });
                         }
-                        
+
+                        if(res.wallet)
+                        {
+                            swal.fire({
+                                title: 'Error!',
+                                text: `${res.wallet}`,
+                                icon: 'error'
+                            });
+                        }
+
                         if(res.success)
                         {
                             countCart();

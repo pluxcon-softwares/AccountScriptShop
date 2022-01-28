@@ -93,6 +93,24 @@
 @section('extra_script')
     <script>
         $(function(){
+
+            // Disable MakePayment button if Cart is empty
+            function disablePaymentButton()
+            {
+                $.ajax({
+                    url: `/cart/check-cart`,
+                    method: 'GET',
+                    success: function(res){
+                        if(res.empty_cart === true){
+                            $('#makePayment').attr('disabled', true);
+                        }else{
+                            $('#makePayment').attr('disabled', false);
+                        }
+                    }
+                });
+            }
+            disablePaymentButton();
+
             function removeItemInCart()
             {
                 $("#orderItemsTbody").on('click', '.delete_item', function(e){
@@ -102,8 +120,14 @@
                         url: '/cart/delete-cart-item/'+orderItemID,
                         method: 'GET',
                         success: function(res){
+                            if(res.status == true)
+                            {
+                                $('#makePayment').attr('disabled', true);
+                            }
+
                             if(res.status === 200){
                                 window.location.reload();
+                                $('#makePayment').attr('disabled', false);
                             }
                         }
                     });

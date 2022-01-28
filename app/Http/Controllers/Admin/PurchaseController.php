@@ -21,7 +21,7 @@ class PurchaseController extends Controller
         $totalPurchases = null;
         foreach($purchases as $purchase)
         {
-            $totalPurchases .= $purchase->price;
+            $totalPurchases += $purchase->price;
         }
         return view('admin.purchases')->with(['title' => $title, 'totalPurchases' => $totalPurchases]);
     }

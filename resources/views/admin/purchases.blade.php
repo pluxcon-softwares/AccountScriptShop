@@ -144,7 +144,7 @@
                 $("#purchasesTbody").on('click', '.delete_purchase', function(e){
                     e.preventDefault();
                     var purchaseID = e.currentTarget.dataset.delete_purchase;
-                    swal({
+                    swal.fire({
                     title: "Are you sure?",
                     text: "Once deleted, you will not be able to recover it",
                     icon: "warning",
@@ -158,15 +158,12 @@
                             method:'GET',
                             success: function(res){
                                 if(res.success){
-                                    swal(res.success, {
-                                        icon: "success",
-                                    });
                                     window.location.reload();
                                 }
                             }
                         });
                     } else {
-                        swal("Your puchased product is safe!");
+                        swal.fire("Your puchased product is safe!");
                     }
                     });
                 });

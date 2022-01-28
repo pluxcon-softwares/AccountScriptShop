@@ -38,6 +38,7 @@
         <div class="card-header">
           <h3 class="card-title"><i class="fas fa-money-bill-alt"></i> Account Balance ${{ sprintf('%.2f', Auth::user()->wallet) }}</h3>
         </div>
+        
       </div>
 
       <div class="card card-primary">

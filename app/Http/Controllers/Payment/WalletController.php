@@ -138,8 +138,30 @@ class WalletController extends Controller
             ]);
     }
 
+    public function checkCart()
+    {
+        $cart = Cart::where('user_id', Auth::user()->id)->count();
+        if($cart == 0)
+        {
+            return response()->json(['empty_cart' => true]);
+        }
+    }
+
     public function cart($id)
     {
+        $wallet = Auth::user()->wallet;
+
+        if($wallet == 0)
+        {
+            return response()->json(['wallet' => "You don't have money in your wallet."]);
+        }
+
+        $product = Product::find($id)->first();
+        if($product->price > $wallet)
+        {
+            return response()->json(['wallet' => "You don't have enough in your wallet to purchase this product"]);
+        }
+
         if(Cart::where('product_id', $id)->first())
         {
             return response()->json(['errors' => 'Item already in cart']);
@@ -160,16 +182,24 @@ class WalletController extends Controller
 
     public function deleteCartItem($id)
     {
+        $countItemsInCart = Cart::where('user_id', Auth::user()->id)->count();
+
         $orderItem = Cart::where('id', '=', $id)
                         ->where('user_id', '=', Auth::user()->id)
                         ->first();
-        $orderItem->delete();
-        return response()->json(['status' => 200]);
+        if($countItemsInCart == 0)
+        {
+            return response()->json(['status' => true]);
+        }else{
+            $orderItem->delete();
+            return response()->json(['status' => 200]);
+        }
+
     }
 
     public function processOrder()
     {
-        $totalOrderAmount = null;
+
         $cart = Cart::where('user_id', Auth::user()->id)->get();
 
         if(count($cart) <= 0)
@@ -177,16 +207,14 @@ class WalletController extends Controller
             return response()->json(['empty_cart' =>  "You dont have item(s) in cart"]);
         }
 
+        $totalOrderAmount = null;
         foreach($cart as $item)
         {
             $totalOrderAmount += $item->price;
         }
 
-        if(Auth::user()->wallet < $totalOrderAmount){
-            return response()->json(['error' => "You don't have enough funds in your wallet"]);
-        }else{
-            foreach($cart as $item)
-            {
+        foreach($cart as $item)
+        {
                 $product = Product::find($item->product_id);
                 $purchase = new Purchase();
                 $purchase->user_id = $item->user_id;
@@ -197,14 +225,13 @@ class WalletController extends Controller
                 $purchase->price = $product->price;
                 $purchase->save();
                 $product->delete();
-            }
-
-            $user = User::find(Auth::user()->id);
-            $user->wallet = ($user->wallet - $totalOrderAmount);
-            $user->save();
-            Cart::where('user_id', Auth::user()->id)->delete();
-            return response()->json(['success' => 'Purchase Complate - Thank you!']);
         }
+
+        $user = User::find(Auth::user()->id);
+        $user->wallet -= $totalOrderAmount;
+        $user->update();
+        Cart::where('user_id', Auth::user()->id)->delete();
+        return response()->json(['success' => 'Purchase Complate - Thank you!']);
     }
 
     public function thankYou()
