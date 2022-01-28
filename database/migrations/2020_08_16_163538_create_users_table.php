@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
-            $table->float('wallet', 10, 2)->nullable();
+            $table->decimal('wallet', 10, 2)->default(0.00)->nullable();
             $table->tinyInteger('active')->default(1);
             $table->string('login_ip')->nullable();
             $table->timestamp('last_logout')->nullable();

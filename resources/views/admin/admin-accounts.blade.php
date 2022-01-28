@@ -1,23 +1,26 @@
-@extends('admin.layouts.admin-master')
+@extends('admin.layouts.master')
 
 @section('title')
     {{ $title }}
 @endsection
 
 @section('content')
-    @include('admin.partials.top_widgets')
 
     <div class="row">
 
-        <div class="col-md-7 col-sm-12 mt-5 mr-auto ml-auto">
-            <div class="x_panel sg-shadow">
-                <div class="x_title">
-                    <h2>{{ $title }}</h2>
-                    <button id="createAdminAccountBtn" class="btn btn-sm btn-danger pull-right">Create New Admin Account</button>
-                    <div class="clearfix"></div>
+        <div class="col-md-7 col-sm-12 mr-auto ml-auto">
+
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        {{  $title  }}
+                        <button id="createAdminAccountBtn" class="btn btn-sm btn-danger" style="margin-left: 250px;">Create New Admin Account</button>
+                        <div class="clearfix"></div>
+                    </h3>
                 </div>
-                <div class="x_content">
-                    <table id="adminAccountDataTable" width="100%" style="font-size: 100%; width:100%;" class="table table-bordered table-striped">
+
+                <div class="card-body">
+                    <table id="adminAccountDataTable" width="100%" style="font-size: 100%; width:100%;" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th style="font-size: 11px; width:50px;">USERNAME</th>
@@ -29,6 +32,7 @@
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
@@ -182,7 +186,7 @@
                         }
 
                         if(res.success){
-                            swal({
+                            swal.fire({
                                 title: "Admin Account",
                                 text: res.success,
                                 icon: "success"
@@ -241,7 +245,7 @@
                             }
 
                             if(res.success){
-                                swal({
+                                swal.fire({
                                     title: "Admin Account",
                                     text: res.success,
                                     icon: "success"
@@ -266,7 +270,7 @@
                     method: 'GET',
                     success: function(res){
                         if(res.success){
-                            swal({
+                            swal.fire({
                                 title: "Admin Account",
                                 text: res.success,
                                 icon: "success"

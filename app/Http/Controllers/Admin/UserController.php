@@ -68,13 +68,13 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->username = $request->username;
             $user->password = $request->password;
-            $user->wallet = $request->wallet;
+            $user->wallet = $request->wallet ? $request->wallet : '0.00';
             $user->active = $request->active;
         }
         else{
             $user->email = $request->email;
             $user->username = $request->username;
-            $user->wallet = $request->wallet;
+            $user->wallet = $request->wallet ? $request->wallet : '0.00';
             $user->active = $request->active;
         }
         $user->save();

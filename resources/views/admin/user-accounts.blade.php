@@ -70,7 +70,7 @@
 
                     <div class="form-group">
                         <label for="wallet">Wallet</label>
-                        <input type="text" name="wallet" id="addWallet" class="form-control">
+                        <input type="text" name="wallet" id="addWallet" value="0.00" class="form-control">
                     </div>
 
                     <div class="form-group">
@@ -243,7 +243,7 @@
                         }
 
                         if(res.success){
-                            swal({
+                            swal.fire({
                                 title: "User Account",
                                 text: res.success,
                                 icon: "success"
@@ -317,7 +317,7 @@
                                 }).then((result)=>{
                                     window.location.reload();
                                 });
-                                
+
                             }
                         }
                     });
@@ -337,7 +337,7 @@
                     method: 'GET',
                     success: function(res){
                         if(res.success){
-                            swal({
+                            swal.fire({
                                 title: "User Account",
                                 text: res.success,
                                 icon: "success"

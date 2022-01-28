@@ -142,6 +142,7 @@
                         url: '/cart/process-order',
                         method: 'GET',
                         success: function(res){
+                            console.log(res)
                             if(res.empty_cart){
                                 swal.fire({
                                     title: "Shopping Cart",

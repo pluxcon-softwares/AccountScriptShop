@@ -147,28 +147,37 @@ class WalletController extends Controller
         }
     }
 
-    public function cart($id)
+    public function addToCart(Request $request)
     {
         $wallet = Auth::user()->wallet;
 
-        if($wallet == 0)
+        $product_id = $request->id;
+
+        if($wallet == 0.00)
         {
-            return response()->json(['wallet' => "You don't have money in your wallet."]);
+            return response()->json(['wallet' => "Your balance is: $0.00, fund your wallet"]);
         }
 
-        $product = Product::find($id)->first();
+        $product = Product::select('id', 'price')
+                        ->where('id', $product_id)
+                        ->first();
+
+        //return response()->json(['success' => $product]);
+
         if($product->price > $wallet)
         {
             return response()->json(['wallet' => "You don't have enough in your wallet to purchase this product"]);
         }
 
-        if(Cart::where('product_id', $id)->first())
+        if(Cart::where('product_id', $product_id)->first())
         {
             return response()->json(['errors' => 'Item already in cart']);
         }
+
         $cart = new Cart();
         $cart->user_id = Auth::user()->id;
-        $cart->product_id = $id;
+        $cart->product_id = $product_id;
+        $cart->price = $product->price;
         $cart->save();
 
         return response()->json(['success' => "Item Added to Cart"]);
@@ -187,6 +196,7 @@ class WalletController extends Controller
         $orderItem = Cart::where('id', '=', $id)
                         ->where('user_id', '=', Auth::user()->id)
                         ->first();
+
         if($countItemsInCart == 0)
         {
             return response()->json(['status' => true]);
@@ -208,6 +218,7 @@ class WalletController extends Controller
         }
 
         $totalOrderAmount = null;
+
         foreach($cart as $item)
         {
             $totalOrderAmount += $item->price;
@@ -229,9 +240,9 @@ class WalletController extends Controller
 
         $user = User::find(Auth::user()->id);
         $user->wallet -= $totalOrderAmount;
-        $user->update();
+        $user->save();
         Cart::where('user_id', Auth::user()->id)->delete();
-        return response()->json(['success' => 'Purchase Complate - Thank you!']);
+        return response()->json(['success' => 'Purchase Complate - Thank you!', 'price' => $totalOrderAmount]);
     }
 
     public function thankYou()

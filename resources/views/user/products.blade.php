@@ -136,10 +136,14 @@
                 var product_id = e.currentTarget.dataset['product_id'];
                 var elementParent = e.currentTarget;
                 $.ajax({
-                    url: `/cart/${product_id}`,
-                    method: 'GET',
+                    url: `/cart/add-to-cart`,
+                    method: 'POST',
+                    data: {
+                        '_token': $('meta[name="csrf-token"]').attr('content'),
+                        'id' : `${product_id}`
+                    },
                     success:(res)=>{
-                        console.log(res.success);
+                        //console.log(res);
 
                         if(res.errors)
                         {
