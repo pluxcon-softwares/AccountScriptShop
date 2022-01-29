@@ -37,6 +37,6 @@ class UserHomeProvider extends ServiceProvider
             $view->with(['settings' => $settings]);
         });
 
-        
+
     }
 }

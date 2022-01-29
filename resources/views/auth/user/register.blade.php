@@ -4,14 +4,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ $settings->site_name }} | Create New Account</title>
+  <title>{{ $settings->site_name ? $settings->site_name : 'CCAutoshop' }} | Create New Account</title>
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-<body class="hold-transition dark-mode login-page">
+<?php
+if(isset($settings))
+{
+    if(isset($settings->page_background)){
+        $bgImage = $settings->page_background;
+    }else {
+        $bgImage = 'default_bg.png';
+    }
+}
+?>
+<body class="hold-transition dark-mode login-page" style="background: url('/storage/bg_image/{{ $bgImage }}') no-repeat;
+background-position:center; background-size:cover;">
 <div class="login-box">
   <div class="login-logo">
-    <img src="{{ ($settings->site_logo == 'no_image.png') ? asset('storage/site_logo/'.$settings->site_logo) : asset('images/category/no_image.png') }}" alt="site-logo" style="border-radius: 50%; width: 50px;">
-    <a href="#"><b>{{ $settings->site_name }}</b></a>
+    <img src="{{ $settings->site_logo ? asset('storage/site_logo/'.$settings->site_logo) : asset('images/category/no_image.png') }}" alt="site-logo" style="border-radius: 50%; width: 50px;">
+    <a href="#"><b>{{ $settings->site_name ? $settings->site_name : 'CCAutoshop' }}</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -51,7 +62,7 @@
         <div class="row">
 
           <div class="form-group">
-            
+
           </div>
           <p style="font-size: 12px; text-align:center;">Please type the Number EXACTLY like in the image</p>
             <div class="col-md-5 col-xs-5">

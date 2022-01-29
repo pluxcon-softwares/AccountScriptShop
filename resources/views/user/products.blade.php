@@ -28,7 +28,7 @@
                             color: #000;
                             ">
                                 <a href="#" class="category_btn" data-category_id='{{ $subcat->id }}' style="color: #fff;">
-                                    <img src="{{ ($subcat->image == 'no_image.png') ? asset('images/category/'.$subcat->image) : asset('storage/category_images/'.$subcat->image) }}" alt="" style=" width: 50px; border-radius:50%; "><br />
+                                    <img src="{{ $subcat->image == 'no_image.png' ? asset('/images/category/no_image.png') : asset('/storage/category_images/'.$subcat->image) }}" alt="" style=" width: 50px; border-radius:50%; "><br />
                                     {{ $subcat->sub_category_name }}
                                 </a>
                             </li>

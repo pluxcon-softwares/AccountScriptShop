@@ -4,18 +4,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ $settings->site_name }} | Log in</title>
+  <title>
+      @if(isset($settings))
+        {{  $settings->site_name }} | Log in
+      @else
+        CCAutoShop
+      @endif
+    </title>
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-<?php 
-$bgImage = $settings->page_background;
+<?php
+if(isset($settings))
+{
+    if(isset($settings->page_background)){
+        $bgImage = $settings->page_background;
+    }else {
+        $bgImage = 'default_bg.png';
+    }
+}
 ?>
-<body class="hold-transition dark-mode login-page" style="background: url('/storage/bg_image/{{ $bgImage }}') no-repeat; 
+<body class="hold-transition dark-mode login-page" style="background: url('/storage/bg_image/{{ $bgImage }}') no-repeat;
 background-position:center; background-size:cover;">
 <div class="login-box">
   <div class="login-logo">
-    <img src="{{ ($settings->site_logo == 'no_image.png') ? asset('storage/site_logo/'.$settings->site_logo) : asset('images/category/no_image.png') }}" alt="site-logo" style="border-radius: 50%; width: 50px;">
-    <a href="#"><b>{{ $settings->site_name }}</b></a>
+    <img src="{{ $settings->site_logo ? '/storage/site_logo/'.$settings->site_logo : '/images/category/no_image.png' }}" alt="site-logo" style="border-radius: 50%; width: 50px;">
+    <a href="#"><b>{{ $settings->site_name? $settings->site_name : 'CCAutoshop' }}</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">

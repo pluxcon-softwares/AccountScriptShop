@@ -1,8 +1,8 @@
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-dark">
   <div class="container">
     <a href="{{ config('app.url') }}" class="navbar-brand">
-    
-      <img src="{{ ($settings->site_logo == 'no_image.png') ? asset('storage/site_logo/'.$settings->site_logo) : asset('images/category/no_image.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+
+      <img src="{{ $settings->site_logo ? asset('storage/site_logo/'.$settings->site_logo) : asset('images/category/no_image.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">{{ ($settings->site_name) ? $settings->site_name : config('app.name') }}</span>
     </a>
 
@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse order-3" id="navbarCollapse">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
-        
+
         <li class="nav-item dropdown">
           <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle"><i class="fas fa-home"></i> Shop</a>
           @if($data['categories'])
@@ -67,13 +67,13 @@
           <span class="badge badge-danger">{{ $ticketReplies ? $ticketReplies : 0 }}</span>
         </a>
       </li>
-      
+
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item">
         <a class="nav-link" href="{{ route('profile') }}">
           <i class="fas fa-user"></i> Profile
         </a>
-        
+
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('logout') }}" role="button">
